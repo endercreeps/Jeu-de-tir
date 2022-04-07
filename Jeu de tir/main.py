@@ -106,7 +106,7 @@ def test():
 color = "#282C34"
 global vie,stop,timer,point_time,point,nb_tir,nb_tir_juste,start_time,initial
 stop = True
-initial=5
+initial=30
 timer=initial
 point=0
 vie=5
