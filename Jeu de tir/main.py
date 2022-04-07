@@ -11,6 +11,7 @@ def create_window() :
     root.minsize(1500,922)
     root.iconbitmap("pointeur_0.ico")
     root.config(background='#424242')
+    root.resizable(width=False, height=False)
     return root
 
 def create_widgets():
