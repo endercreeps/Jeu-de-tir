@@ -24,21 +24,12 @@ def create_background():
     background_o=graphic_zone.create_image(0,0,anchor='nw',image=background)
     return background
 
-# def create_pointeur():
-#     pointeur=ImageTk.PhotoImage(Image.open("pointeur_0.png"),master=root)
-#     pointeur_=graphic_zone.create_image(0,0,anchor='nw',image=pointeur)
-#     return pointeur
 
 def create_cible():
     global cible,cible_
     cible=ImageTk.PhotoImage(Image.open("cible_0.png"),master=root)
     cible_=graphic_zone.create_image(randint(60,1440),randint(80,620),anchor='center',image=cible)
     return cible
-
-# def cordo(event):
-#     x=event.x
-#     y=event.y
-#     print(x,y)
 
 def tir(event):
     coordo=[]
@@ -103,6 +94,11 @@ def test():
         score.place(x=519,y=370)
         stop=False
         point_time=False
+        
+        
+#\\\\\\\\\\\\\\\\\\\\\\\\\
+#---------MAIN------------
+#/////////////////////////
 
 color = "#282C34"
 global vie,stop,timer,point_time,point,nb_tir,nb_tir_juste,start_time,initial
