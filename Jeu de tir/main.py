@@ -1,3 +1,4 @@
+from turtle import left
 from fonction import *
 
 # ==========================================================================================================================================
@@ -103,9 +104,9 @@ def time():
     if point!=0:
         if point_time:
             timer-=1
-        aff_time['text']=f"Temps : {timer}"
-        root.after(1000,time)
-    verif_life()
+            aff_time['text']=f"Temps : {timer}"
+            root.after(1000,time)
+            verif_life()
 
 # ==========================================================================================================================================
 # 
@@ -115,11 +116,17 @@ def time():
 
 def verif_life():
     global cible,vie,stop,timer,point_time,point,nb_tir,nb_tir_juste,initial,name
-    if vie==0:
-        ratio=round((point/(int(initial)-int(timer)))/100,2)
+    if vie==0 or int(timer)<=0:
+        try:
+            ratio=round((point/(int(initial)-int(timer)))/100,2)
+        except:
+            ratio=0
         précision=int((nb_tir_juste/nb_tir)*100)
         graphic_zone.delete(cible)
-        fin=Label(root,text="PERDU",font=("Courrier",50), fg="red",bg='#181818')
+        if vie==0:
+            fin=Label(root,text="PERDU",font=("Courrier",50), fg="red",bg='#181818')
+        else:
+            fin=Label(root,text="FINI",font=("Courrier",50), fg="red",bg='#181818')
         fin.place(x=638,y=300) 
         score=Label(root, text=f"Vous avez un score de {point}\nUn ratio de {ratio}\nUne précision de {précision}%",font=("Courrier",30),fg="red",bg='#181818')
         score.place(x=519,y=370) 
@@ -132,22 +139,59 @@ def verif_life():
         conn.commit()
         conn.close()
 
-    if int(timer)<=0:
-        ratio=round((point/(int(initial)-int(timer)))/100,2)
-        précision=int((nb_tir_juste/nb_tir)*100)
-        graphic_zone.delete(cible)
-        fin=Label(root,text="FINI",font=("Courrier",50), fg="red",bg='#181818')
-        fin.place(x=688,y=300)
-        score=Label(root,text=f"Vous avez un score de {point}\nUn ratio de {ratio}\nUne précision de {précision}%",font=("Courrier",30),fg="red",bg='#181818')
-        score.place(x=519,y=370)
-        stop=False
-        point_time=False
+        tp_score=Toplevel(root)
+        tp_score.title("Score")
+        tp_score.geometry("410x450+770+300")
+        tp_score.minsize(450,450)
+        tp_score.iconbitmap("pointeur_0.ico")
+        tp_score.config(background='#424242')
+        tp_score.resizable(width=False,height=False)
 
         conn=sqlite3.connect('data.db')
         c=conn.cursor()
-        c.execute("""INSERT INTO score(Name, Score, Ratio, Précision) VALUES(?, ?, ?, ?)""",(name,point,ratio,précision))
-        conn.commit()
-        conn.close()
+        c.execute("SELECT Name FROM score ORDER BY Score ")
+        n = c.fetchall()
+        c.execute("SELECT Score FROM score ORDER BY Score ")
+        s = c.fetchall()
+        c.execute("SELECT Ratio FROM score ORDER BY Score ")
+        r = c.fetchall()
+        c.execute("SELECT Précision FROM score ORDER BY Score ")
+        p = c.fetchall()
+
+        n_=[x for elem in n for x in elem]
+        s_=[x for elem in s for x in elem]
+        r_=[x for elem in r for x in elem]
+        p_=[x for elem in p for x in elem]
+
+        del(n_[0:(len(n_)-10)])
+        del(s_[0:(len(s_)-10)])
+        del(r_[0:(len(r_)-10)])
+        del(p_[0:(len(p_)-10)])
+
+        lst=[]
+
+        for i in range(1,len(n_)+1):
+            lst.append((i,n_[len(n_)-i],s_[len(s_)-i],r_[len(r_)-i],p_[len(p_)-i]))
+
+        p=("Top ","Nom ","Score ","Ratio ","Précision")
+        lst.insert(0,p)
+
+        total_columns = len(lst[0])
+
+        for i in range(11): 
+            for j in range(total_columns):                    
+                try:
+                    aff_name=Label(tp_score, font=("Courrier",18), fg="white",bg='#424242')
+                    aff_name.grid(row=i,column=j)
+                    aff_name['text']=lst[i][j]
+                except:
+                    pass
+
+        def quit():
+            root.destroy()
+
+        button=Button(tp_score,text="Quitter", font=("Courrier", 10), bg='white', fg='#424242', command=quit)
+        button.grid(row=13,column=4)
 
 # ==========================================================================================================================================
 # 

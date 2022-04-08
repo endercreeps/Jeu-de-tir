@@ -1,8 +1,9 @@
-from msilib.schema import Class
+import imp
 from tkinter import *
 from PIL import Image ,ImageTk
 from random import randint
 import sqlite3
+from time import *
 
 # ==========================================================================================================================================
 # 
