@@ -1,4 +1,3 @@
-from turtle import left
 from fonction import *
 
 # ==========================================================================================================================================
@@ -296,20 +295,26 @@ def check():
 
 frame=Frame(menu,bg='#424242')
 
-aff_temps=Label(frame, text="Choisissez le temps\nde jeu compris entre\n5 et 30 secondes",font=("Courrier",18), fg="white",bg='#424242')
-aff_temps.pack(expand=YES)
+aff_temps=Label(frame, text="Choisissez le temps\nde jeu compris entre\n5 et 30 secondes :",font=("Courrier",18), fg="white",bg='#424242')
+aff_temps.pack()
 
 entry_time=Entry(frame,font=("Courrier",18),bg='white', cursor=None)
-entry_time.pack(expand=YES)
+entry_time.pack()
 
-aff_name=Label(frame, text="Choisissez votre nom",font=("Courrier",18), fg="white",bg='#424242')
-aff_name.pack(expand=YES)
+aff_name=Label(frame, text="Choisissez votre nom :",font=("Courrier",18), fg="white",bg='#424242')
+aff_name.pack()
 
 entry_name=Entry(frame,font=("Courrier",18),bg='white', cursor=None)
-entry_name.pack(expand=YES)
+entry_name.pack()
 
-button=Button(frame,text="Entrer", font=("Courrier", 10), bg='white', fg='#424242', command=check)
-button.pack(expand=YES)
+button=Button(frame,text="Lancer le jeu", font=("Courrier", 20), bg='white', fg='#424242', command=check)
+button.pack(pady=25,fill=X)
+
+def quit():
+    root.destroy()
+
+button=Button(frame,text="Quitter le jeu", font=("Courrier", 20), bg='white', fg='#424242', command=quit)
+button.pack(pady=15,fill=X)
 
 frame.pack(expand=YES)
 
