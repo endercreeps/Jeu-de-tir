@@ -1,6 +1,6 @@
 # Jeu-de-tir
 
-Projet de NSI en première général au Lycée Edouard-Branly à Lyon 5 créé par X et X
+Projet de NSI en première général au XXX à XXX créé par X et X
 
 Ce jeu est un jeu de tir où des cibles doivent être détruites.
 On les vise selon la position du pointeur et selon la précision du joueur, un nombre de points plus ou moins grand sera ajouté
